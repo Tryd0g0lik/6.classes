@@ -8,16 +8,30 @@ class Student:
     self.grades = {}
 
 
+
+  def rate_hw(self, lecturer, course, grade):
+    if isinstance(lecturer, Lecturer) and course in self.courses_attached and course in lecturer.courses_in_progress:
+      if course in lecturer.grades:
+        lecturer.grades[course] += [grade]
+      else:
+        lecturer.grades[course] = [grade]
+    else:
+      return 'Ошибка'
+
 class Mentor:
   def __init__(self, name, surname):
     self.name = name
     self.surname = surname
 
 
+class Lecturer(Student):
+  def __init__(self, course, grade, name, surname, gender, surname_lecturer, name_lecturer, gender_lecturer):
+    Student.rate_hw(course, grade)
+    Student.__init__(name, surname, gender)
+    self.lecturer = {{surname_lecturer: name_lecturer} : gender_lecturer}
 
+    #def lectorer(self, surname_lecturer, name_lecturer):
 
-class Lecturer:
-  pass
 
 class Reviewer(Student, Mentor):
   def __init__(self, student, grade):
