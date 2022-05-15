@@ -12,7 +12,20 @@ class Mentor:
   def __init__(self, name, surname):
     self.name = name
     self.surname = surname
+
+
+
+
+class Lecturer:
+  pass
+
+class Reviewer(Student, Mentor):
+  def __init__(self, student, grade):
+    self.student = student
+    self.grade = grade
     self.courses_attached = []
+
+
 
   def rate_hw(self, student, course, grade):
     if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -23,16 +36,10 @@ class Mentor:
     else:
       return 'Ошибка'
 
-class Lecturer:
-  pass
-
-class Reviewer:
-  pass
-
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
 
-cool_mentor = Mentor('Some', 'Buddy')
+cool_mentor = Reviewer('Some', 'Buddy')
 cool_mentor.courses_attached += ['Python']
 
 cool_mentor.rate_hw(best_student, 'Python', 10)
