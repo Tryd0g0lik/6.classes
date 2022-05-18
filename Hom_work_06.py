@@ -28,30 +28,12 @@ class Lecturer(Mentor):
     print(f'Имя: {self.surname}')
 
 
-class AverageGrades():
-  def __init__(self, grades):
-    self.grades = grades
-
-  def grad(self, grades):
-    new_l = 0
-    new_l = []
-
-    grades[list(grades.keys())[0]] += list(grades.values())[0]
-
-    l = list(grades.values())
-    l_len = len(l)
-    for i in range(l_len):
-      new_l = new_l + l[i]
-
-    grades_average_sum = sum(new_l)
-    grades_average_len = len(new_l)
-    aver = round(grades_average_sum / grades_average_len, 2)
-
-    return aver
-
 class Student(Lecturer):
   def __init__(self, name, surname, gender):
     Mentor.__init__(self, name, surname, gender)
+    self.name = name
+    self.surname = surname
+
     self.finished_courses = []
 
     self.courses = ''
@@ -59,6 +41,8 @@ class Student(Lecturer):
     self.courses_attached = []
     self.grades = {}
     self.mentors = []
+    self.grades_list = []
+
 
   def rate_lectur(self, lecturer, course, grade):
 
@@ -69,11 +53,17 @@ class Student(Lecturer):
 
       else:
         lecturer.grades[course] = [grade]
-
+      return lecturer.grades
     else:
       return 'Ошибка'
+    self.grades_list = lecturer.grades
 
-    #return ('111111', lecturer.grades)
+    #print ('111111',grades_list )
+
+  def __str__(self):
+
+    meta_list_student = [self.name, self.surname]
+    return meta_list_student
 # class StudentGrade():
 #   def __init__(self, student, course, grade, name, surname, gender):
 #     Mentor.__init__(name, surname, gender)
@@ -102,17 +92,52 @@ class Reviewer(Mentor):
     else:
       return 'Ошибка'
 
+class AverageGrades():
+  def __init__(self, grades):
+    self.grades = grades
+
+  def grad(self, grades):
+    new_l = 0
+    new_l = []
+
+    grades[list(grades.keys())[0]] += list(grades.values())[0]
+
+    l = list(grades.values())
+    l_len = len(l)
+    for i in range(l_len):
+      new_l = new_l + l[i]
+
+    grades_average_sum = sum(new_l)
+    grades_average_len = len(new_l)
+    aver = round(grades_average_sum / grades_average_len, 2)
+
+    return aver
+
+  def cours(self):
+    listcours = list(grades.keys())
+    return listcours
 # ЗАДАЧА 1-2
+# Студент
 best_student = Student('Ruoy', 'Eman', 'your_gender')
 best_student.courses_in_progress += ['Python']
 best_student.courses_attached += ['Python']
+grades = {}
+grades['Git'] = [5]
+grades['Git'] += [10]
+grades['Git'] += [3]
+grades['Git'] += [1]
+grades['Git'] += [6]
+bal_student = AverageGrades(grades)
+#print('55555', bal_student.grad(grades))
+average_bal = bal_student.grad(grades)
 
-# cool_mentor = Reviewer('Some', 'Buddy')
+# Спец
 cool_reviewer = Reviewer('Klava', 'Pupkina', 'female', 'Some', 'Buddy')
 cool_reviewer.courses_attached += ['Python']
 
 cool_reviewer.rate_hw(best_student, 'Python', 10)
 
+# Лектор
 cool_lecturer = Lecturer('Frosya', 'surname', 'gender', 'courses')
 cool_lecturer.courses_attached += ['Python']
 cool_lecturer.courses_in_progress += ['Python']
@@ -120,10 +145,12 @@ cool_lecturer.courses_attached += ['Pandas']
 cool_lecturer.courses_in_progress += ['Pandas']
 
 best_student.rate_lectur(cool_lecturer, 'Python', 10)
+best_student.rate_lectur(cool_lecturer, 'Python', 7)
 best_student.rate_lectur(cool_lecturer, 'Pandas', 10)
 
 print(best_student.grades)
 print(cool_lecturer.grades)
+
 print(' ')
 
 # ЗАДАЧА 3
@@ -132,38 +159,35 @@ odj = Mentor('Dasha', 'Pupkina', 'male')
 print(odj.__str__())
 
 print('')
-
-
 # Средний бал лектору
 print('Средний бал лектору')
 grades = {}
-print('')
 fsd = Lecturer("name", "surname", "gender", "courses")
-grades['courses'] = [5]
-grades['courses'] += [10]
-grades['courses'] += [3]
-grades['courses'] += [1]
-grades['courses'] += [6]
+grades['Python'] = [5]
+grades['Python'] += [10]
+grades['Python'] += [3]
+grades['Python'] += [1]
+grades['Python'] += [6]
+grades['Git'] = [7]
 
-fsd = Lecturer("name", "surname", "gender", "courses")
-grades['coooouprses'] = [7]
-
-bal = AverageGrades(grades)
+bal_lector = AverageGrades(grades)
 fsd.__str__()
-print('Средний бал {}'.format(bal.grad(grades)))
+print('Средний бал {}'.format(bal_lector.grad(grades)))
 
 print('')
 # Средний бал студентов
 print('Средний бал студентов ')
+#print(best_student.__str__())
+name_student = (best_student.__str__())[0]
+surname_student = (best_student.__str__())[1]
+print('Имя: {}'.format(name_student))
+print('Фамилия: {}'.format(surname_student))
+print('Средняя оценка за домашние задания: {}'.format(average_bal))
+print('Курсы в процессе изучения: ', str(bal_student.cours()).strip("'][").replace("', '", ", "))
+print('Завершенные курсы: Введение в программирование')
 
 
 
-# def StudentGrade():
-#   Mentor.__init__(name, surname, gender)
-#   self.student = student
-#   self.course = course
-#   self.grade = grade
-# StudentGrade();
 # Везде вижу данный шаблон или его аналог
 # 1) def __init__(self, name, surname, gender, student, grade):
 #     super().__init__(name, surname, gender)
