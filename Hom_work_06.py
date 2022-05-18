@@ -116,6 +116,24 @@ class AverageGrades():
   def cours(self):
     listcours = list(grades.keys())
     return listcours
+
+class compare():
+  def __init__(self, element1, element2):
+    self.element1 = element1
+    self.element2 = element2
+
+  def compare_result(self):
+    element1 = self.element1
+    element2 = self.element2
+
+    if element1 < element2:
+      print('Сравнение: {} < {}'.format(element1, element2) )
+    elif element1 > element2:
+      print('Сравнение: {} > {}'.format(element1, element2) )
+    else:
+      print('Сравнение: {} = {}'.format(element1, element2) )
+
+
 # ЗАДАЧА 1-2
 # Студент
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -186,6 +204,13 @@ print('Средняя оценка за домашние задания: {}'.for
 print('Курсы в процессе изучения: ', str(bal_student.cours()).strip("'][").replace("', '", ", "))
 print('Завершенные курсы: Введение в программирование')
 
+print(' ')
+# Возможность сравнивать между собой любой объект
+print('Возможность сравнивать между собой лекторов')
+compere_lectos = compare(bal_lector.grad(grades), average_bal)
+compere_lectos.compare_result()
+print('''Код раздут из-за ручной работы со словарем Не стал создавать  еще одну пару - лектора и студента. 
+Класс "compare" позволяет сравнить любые 2 эллемента''')
 
 
 # Везде вижу данный шаблон или его аналог
