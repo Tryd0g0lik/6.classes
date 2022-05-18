@@ -28,13 +28,26 @@ class Lecturer(Mentor):
     print(f'Имя: {self.surname}')
 
 
-  def AverageGrades(self, grades):
+class AverageGrades():
+  def __init__(self, grades):
+    self.grades = grades
 
-    for key, value in grades.items():  # use for loop to iterate dict2 into the dict3 dictionary
-      grades[key] = value
-    print('111', grades)
+  def grad(self, grades):
+    new_l = 0
+    new_l = []
 
+    grades[list(grades.keys())[0]] += list(grades.values())[0]
 
+    l = list(grades.values())
+    l_len = len(l)
+    for i in range(l_len):
+      new_l = new_l + l[i]
+
+    grades_average_sum = sum(new_l)
+    grades_average_len = len(new_l)
+    aver = round(grades_average_sum / grades_average_len, 2)
+
+    return aver
 
 class Student(Lecturer):
   def __init__(self, name, surname, gender):
@@ -53,11 +66,14 @@ class Student(Lecturer):
       # if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in lecturer.courses_in_progress and lecturer.courses_in_progress in self.courses_attached:
       if course in lecturer.grades:
         lecturer.grades[course] += [grade]
+
       else:
         lecturer.grades[course] = [grade]
+
     else:
       return 'Ошибка'
 
+    #return ('111111', lecturer.grades)
 # class StudentGrade():
 #   def __init__(self, student, course, grade, name, surname, gender):
 #     Mentor.__init__(name, surname, gender)
@@ -118,27 +134,23 @@ print(odj.__str__())
 print('')
 
 
-# Средний бал лектора
-print('Средний бал лектора')
-grad_ = {}
+# Средний бал лектору
+print('Средний бал лектору')
+grades = {}
 print('')
 fsd = Lecturer("name", "surname", "gender", "courses")
-fsd.grades['courses'] = 5
-grad = (fsd.grades)
-grad_[list(grad.keys())[0]] = list(grad.values())[0]
+grades['courses'] = [5]
+grades['courses'] += [10]
+grades['courses'] += [3]
+grades['courses'] += [1]
+grades['courses'] += [6]
 
-#grad_[list(grad.keys())[0]] = list(grad.values())[0]
-fsd_v3 = Lecturer("name", "surname", "gender", "courses")
-fsd_v3.grades['coooouprses'] = 7
-grad = (fsd_v3.grades)
+fsd = Lecturer("name", "surname", "gender", "courses")
+grades['coooouprses'] = [7]
 
-grad_[list(grad.keys())[0]] = list(grad.values())[0]
-grades_average_len = len(list(grad_.values()))
-grades_average_sum = sum(list(grad_.values()))
-aver = grades_average_sum / grades_average_len
-
+bal = AverageGrades(grades)
 fsd.__str__()
-print('Средний бал {}'.format(aver))
+print('Средний бал {}'.format(bal.grad(grades)))
 
 print('')
 # Средний бал студентов
