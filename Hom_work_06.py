@@ -81,11 +81,19 @@ class Reviewer(Mentor):
     else:
       return 'Ошибка'
 
-class AverageGrades():
+class AverageGrades(Student):
   def __init__(self, grades):
+    # Student.__init__(self, self.name, self.surname, self.gender)
+    # Student().name
     self.grades = grades
     self.l_common_values = []
     self.l_common_key = []
+    # self.name = name
+
+
+
+
+
 
   def grad(self, grades):
     new_l = 0
@@ -108,14 +116,26 @@ class AverageGrades():
     listcours = list(grades.keys())
     return listcours
 
+  # def bal_name_subject(self, name_student, surname_student):
   def bal_name_subject(self):
-    # print('777', Student.__str__(self))
+    list_student_courses = []
+    print()
+    # super().__init__(self, name_student, surname_student)
+    # super().__init__(self, name_student, surname_student)
+    # Student.__init__(self.name, self.surname)
+    # list_student_courses.append((name_student, surname_student))
+
+    # print(self.name, 'self.name')
+    # print(list_student_courses)
+    # print(name_student)
+    # print(surname_student)
     AverageGrades.grad(self, grades)
     # self.grades
     g = grades
 
-    if g != None:
-      print(g)
+    # if g != None: # and isinstance(name_student, Student):
+
+    print(g)
 
 
 
@@ -220,7 +240,8 @@ print('ЗАДАЧА 4')
 #def bal_name_subject():
 #print(grades)
 p = bal_student.bal_name_subject()
-print(p)
+print(best_student.name)
+
 
 
 
