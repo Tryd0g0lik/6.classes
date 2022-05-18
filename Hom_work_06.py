@@ -11,8 +11,6 @@ class Mentor:
     print('Имя: {}'.format(self.name))
     print('Фамилия: {}'.format(self.surname))
 
-
-
 class Lecturer(Mentor):
   def __init__(self, name, surname, gender, courses):
     super().__init__(name, surname, gender)
@@ -26,7 +24,6 @@ class Lecturer(Mentor):
 
     print(f'Имя: {self.name}')
     print(f'Имя: {self.surname}')
-
 
 class Student(Lecturer):
   def __init__(self, name, surname, gender):
@@ -64,14 +61,6 @@ class Student(Lecturer):
 
     meta_list_student = [self.name, self.surname]
     return meta_list_student
-# class StudentGrade():
-#   def __init__(self, student, course, grade, name, surname, gender):
-#     Mentor.__init__(name, surname, gender)
-#     self.student = student
-#     self.course = course
-#     self.grade = grade
-#
-
 
 class Reviewer(Mentor):
   def __init__(self, name, surname, gender, student, grade):
@@ -95,6 +84,8 @@ class Reviewer(Mentor):
 class AverageGrades():
   def __init__(self, grades):
     self.grades = grades
+    self.l_common_values = []
+    self.l_common_key = []
 
   def grad(self, grades):
     new_l = 0
@@ -110,12 +101,23 @@ class AverageGrades():
     grades_average_sum = sum(new_l)
     grades_average_len = len(new_l)
     aver = round(grades_average_sum / grades_average_len, 2)
-
+    #print('888', grades)
     return aver
 
   def cours(self):
     listcours = list(grades.keys())
     return listcours
+
+  def bal_name_subject(self):
+    # print('777', Student.__str__(self))
+    AverageGrades.grad(self, grades)
+    # self.grades
+    g = grades
+
+    if g != None:
+      print(g)
+
+
 
 class compare():
   def __init__(self, element1, element2):
@@ -189,13 +191,13 @@ grades['Python'] += [6]
 grades['Git'] = [7]
 
 bal_lector = AverageGrades(grades)
+#print(AverageGrades(grades))
 fsd.__str__()
 print('Средний бал {}'.format(bal_lector.grad(grades)))
 
 print('')
-# Средний бал студентов
+# Средний бал студента
 print('Средний бал студентов ')
-#print(best_student.__str__())
 name_student = (best_student.__str__())[0]
 surname_student = (best_student.__str__())[1]
 print('Имя: {}'.format(name_student))
@@ -211,6 +213,26 @@ compere_lectos = compare(bal_lector.grad(grades), average_bal)
 compere_lectos.compare_result()
 print('''Код раздут из-за ручной работы со словарем Не стал создавать  еще одну пару - лектора и студента. 
 Класс "compare" позволяет сравнить любые 2 эллемента''')
+
+print(' ')
+# ЗАДАЧА 4
+print('ЗАДАЧА 4')
+#def bal_name_subject():
+#print(grades)
+p = bal_student.bal_name_subject()
+print(p)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Везде вижу данный шаблон или его аналог
