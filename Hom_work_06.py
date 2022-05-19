@@ -12,18 +12,20 @@ class Mentor:
     print('Фамилия: {}'.format(self.surname))
 
 class Lecturer(Mentor):
-  def __init__(self, name, surname, gender, courses):
+  def __init__(self, name, surname, gender, course):
     super().__init__(name, surname, gender)
-    self.courses = courses
+    self.courses = course
     self.courses_in_progress = []
     self.courses_attached = []
     self.grades = {}
 
 
   def __str__(self):
-
-    print(f'Имя: {self.name}')
-    print(f'Имя: {self.surname}')
+    stud_name = self.name
+    stud_surname = self.surname
+    print(f'Имя: {stud_name}')
+    print(f'Имя: {stud_surname}')
+    return (stud_name, stud_surname)
 
 class Student(Lecturer):
   def __init__(self, name, surname, gender):
@@ -34,6 +36,7 @@ class Student(Lecturer):
     self.finished_courses = []
 
     self.courses = ''
+
     self.courses_in_progress = []
     self.courses_attached = []
     self.grades = {}
@@ -47,7 +50,7 @@ class Student(Lecturer):
       # if isinstance(lecturer, Lecturer) and course in lecturer.courses_attached and course in lecturer.courses_in_progress and lecturer.courses_in_progress in self.courses_attached:
       if course in lecturer.grades:
         lecturer.grades[course] += [grade]
-
+        return lecturer.grades
       else:
         lecturer.grades[course] = [grade]
       return lecturer.grades
@@ -57,26 +60,41 @@ class Student(Lecturer):
 
     #print ('111111',grades_list )
 
-  def __str__(self):
+  def name_surname_student(self):
+    name = self.name
+    surname = self.surname
+    # return [name, surname]
+    return (name, surname)
 
-    meta_list_student = [self.name, self.surname]
-    return meta_list_student
+  def __str__(self):
+    name = self.name
+    surname = self.surname
+
+    return name, surname
 
 class Reviewer(Mentor):
-  def __init__(self, name, surname, gender, student, grade):
+  # def __init__(self, name, surname, gender, student, grade ):
+  def __init__(self, name, surname, gender):
     super().__init__(name, surname, gender)
 
-    self.student = student
-    self.grade = grade
+    # self.student = student
+    # self.student = ()
+    # self.grade = grade
+    # self.grade = {}
     self.courses_attached = []
 
   def rate_hw(self, student, course, grade):
-    if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
-      if course in student.grades:
-        student.grades[course] += [grade]
+
+  #  and course in self.courses_attached and course in student.courses_in_progress
+    if isinstance(student, Student):
+      print('00',list(grades.keys()))
+      if course in list(grades.keys()):
+        print('11')
+        grades[course] += [grade]
         #print('333', student.grades)
       else:
-        student.grades[course] = [grade]
+        print('22', course)
+        grades[course] = [grade]
         #print('444', student.grades)
     else:
       return 'Ошибка'
@@ -135,7 +153,7 @@ class AverageGrades(Student):
 
     # if g != None: # and isinstance(name_student, Student):
 
-    print(g)
+    # print(g)
 
 
 
@@ -157,10 +175,22 @@ class compare():
 
 
 # ЗАДАЧА 1-2
+print('ЗАДАЧА 1-2')
 # Студент
-best_student = Student('Ruoy', 'Eman', 'your_gender')
-best_student.courses_in_progress += ['Python']
-best_student.courses_attached += ['Python']
+print("Введите Имя, Фамилия, Пол, Курс, Оценка - через запятую ',' ")
+name, surname, gender, course, grade, status = 'petya', 'petrov', 'male', 'python', 4, 'student' #(input('Имя,
+# Фамилия, Пол,  'Курс, Оценка: ')).strip().split(', ')
+
+print("Reviewer!! Введите Имя, Фамилия, Пол - через запятую ',' ")
+rev_name, rev_surname, rev_gender = 'Yasha', 'Kuznecove', 'male' #(input('Имя, Фамилия, Пол,
+# Курс,  'Оценка: ')).strip().split(', ')
+
+best_student = Student(name, surname, gender)
+best_student.courses_in_progress += [course]
+best_student.courses_attached += [course]
+
+best_student.grades = {course : grade}
+# petya, petrov, male, python, 4
 grades = {}
 grades['Git'] = [5]
 grades['Git'] += [10]
@@ -172,7 +202,8 @@ bal_student = AverageGrades(grades)
 average_bal = bal_student.grad(grades)
 
 # Спец
-cool_reviewer = Reviewer('Klava', 'Pupkina', 'female', 'Some', 'Buddy')
+# cool_reviewer = Reviewer('Klava', 'Pupkina', 'female')
+cool_reviewer = Reviewer('Klava', 'Pupkina', 'female')
 cool_reviewer.courses_attached += ['Python']
 
 cool_reviewer.rate_hw(best_student, 'Python', 10)
@@ -240,9 +271,39 @@ print('ЗАДАЧА 4')
 #def bal_name_subject():
 #print(grades)
 p = bal_student.bal_name_subject()
-print(best_student.name)
+# print(best_student.name)
+
+# name, surname, gender, course, grade
+# names = []
+
+def faculty_history(name, surname, course, grade, status = None, student = [], student_history = None, rev_name =
+None, rev_gender = None, rev_lecturer = None, rev_surname = None):
+
+  status = str(status).strip().lower()
+  studend_meta_user = Student(name, surname, gender)
+  student_meta = studend_meta_user.name_surname_student()
+  print(('student_meta: ', student_meta))
+
+  # rewiewer_meta_user = Reviewer(rev_name, rev_surname, rev_gender, student, grade)
+  rewiewer_meta_user = Reviewer(rev_name, rev_surname, rev_gender)
+  # student_course_history = rewiewer_meta_user.rate_hw(studend_meta_user, course, grade)
+  student_course_history = rewiewer_meta_user.rate_hw(student_meta, course, grade)
+
+  if status == "student" or status == 'студент' and (name, surname) in student:
+     (student_history[0])[student_meta] += student_course_history
+     print('22', student_history)
+     return student_history
+  else:
+    # s = Student(name, surname, gender)
+    # student_meta = s.name_surname_student()
+    print('33', student_meta)
+    student = [{ student_meta : grades}]
+    print('student', student)
 
 
+faculty_history(name, surname, gender, course, grade, status)
+# petya, petrov, male, python, 4, student
+# Yasha, Kuznecove, male
 
 
 
