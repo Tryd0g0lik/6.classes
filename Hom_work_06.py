@@ -87,9 +87,9 @@ class Reviewer(Mentor):
 
   #  and course in self.courses_attached and course in student.courses_in_progress
     if isinstance(student, Student):
-      print('00',list(grades.keys()))
+      print('00',grades)
       if course in list(grades.keys()):
-        print('11')
+
         grades[course] += [grade]
         #print('333', student.grades)
       else:
